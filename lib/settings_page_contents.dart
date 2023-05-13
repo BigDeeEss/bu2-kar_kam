@@ -91,6 +91,30 @@ class _SettingsPageContentsState extends State<SettingsPageContents>
         basePageViewRect:
         basePageViewRect ?? Offset.zero & MediaQuery.of(context).size,
         height: 75.0,
+        index: 2,
+        leading: Icon(
+          Icons.circle_notifications_outlined,
+          size: settingsPageListTileIconSize,
+        ),
+        onTap: (() {
+          // Toggle bool variable in AppModel that controls the fade effect.
+          GetItService.instance<AppData>()
+              .change(identifier: 'settingsPageListTileRadius');
+        }),
+        trailing: Icon(
+          Icons.circle_notifications_outlined,
+          size: settingsPageListTileIconSize,
+        ),
+        widget: const Text(
+          '2. Click to cycle settingsPageListTileRadius!',
+          maxLines: 1,
+          softWrap: false,
+        ),
+      ),
+      SettingsPageListTile(
+        basePageViewRect:
+        basePageViewRect ?? Offset.zero & MediaQuery.of(context).size,
+        height: 75.0,
         index: 3,
         leading: Icon(
           Icons.circle_notifications_outlined,

@@ -52,6 +52,8 @@ class AppDataService extends AppData {
           cycleSettingsPageListTileIconSize(),
       'settingsPageListTilePadding': (newValue) =>
           cycleSettingsPageListTilePadding(),
+      'settingsPageListTileRadius': (newValue) =>
+          cycleSettingsPageListTileRadius(),
     };
 
     // Call the function determined from [map] and update relevant field.
@@ -156,6 +158,31 @@ class AppDataService extends AppData {
         'settingsPageListTilePadding', settingsPageListTilePadding);
   }
 
+  /// Cycle and upload a new [settingsPageListTileIconSize]; update
+  /// dependencies.
+  void cycleSettingsPageListTileRadius() {
+    // Define a map which can convert an integer to a double that represents
+    // a value for [settingsPageListTileIconSize].
+    Map<int, double> map = {
+      0: 0.0,
+      1: 5.0,
+      2: 10.0,
+      3: 15.0,
+      4: 20.0,
+    };
+
+    // Use [map], its inverse and the modulus operator to cycle
+    // [settingsPageListTileIconSize].
+    int cycleSettingsPageListTileRadiusIntRepresentation =
+        map.inverse()[settingsPageListTileRadius]!;
+    settingsPageListTileRadius = map[
+        (cycleSettingsPageListTileRadiusIntRepresentation + 1) % map.length]!;
+
+    // Save user preference for [settingsPageListTileIconSize] to storage.
+    setUserPreferences(
+        'settingsPageListTileRadius', settingsPageListTileRadius);
+  }
+
   Future<void> initialiseAppData() async {
     // Get an instance of [SharedPreferences] for retrieving stored data.
     final userPreferences = await SharedPreferences.getInstance();
@@ -200,6 +227,12 @@ class AppDataService extends AppData {
     settingsPageListTilePadding = settingsPageListTilePadding ?? 0.0;
     setUserPreferences(
         'settingsPageListTilePadding', settingsPageListTilePadding);
+
+    settingsPageListTileRadius =
+        userPreferences.getDouble('settingsPageListTileRadius');
+    settingsPageListTileRadius = settingsPageListTileRadius ?? 15.0;
+    setUserPreferences(
+        'settingsPageListTileRadius', settingsPageListTileRadius);
   }
 
   /// Initiates field variables; only called once after app start.
