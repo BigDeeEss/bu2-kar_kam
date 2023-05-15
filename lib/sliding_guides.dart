@@ -25,92 +25,94 @@ class SlidingGuides extends StatelessWidget with GetItMixin {
     double buttonRadius = watchOnly((AppData a) => a.buttonRadius!);
 
     // Watch for changes to [AppData.buttonRadius] registered with GetIt.
-    double buttonPaddingMainAxis = watchOnly((AppData a) => a.buttonPaddingMainAxis);
+    double buttonPaddingMainAxis =
+        watchOnly((AppData a) => a.buttonPaddingMainAxis);
 
-    return Stack(
-      children: [
-        // Add two additional guidance circles for checking the sliding
-        // motion of [SettingsPageListTile].
-        // ToDo: delete these unnecessary guidance circles at some point.
-        (buttonAxis == Axis.horizontal) ? Positioned(
-          top: (buttonAlignment.y < 0) ? 0 : null,
-          bottom: (buttonAlignment.y > 0) ? 0 : null,
-          left: (buttonAlignment.x < 0)
-              ? ButtonArray.buttonCoordinates!.first
-              : null,
-          right: (buttonAlignment.x > 0)
-              ? ButtonArray.buttonCoordinates!.first
-              : null,
-          child: CustomPaint(
-            painter: OpenPainter(
-              alignment: buttonAlignment,
-              axis: buttonAxis,
-              radius: buttonRadius + buttonPaddingMainAxis,
-              shiftVal: ButtonArray.rect!.shortestSide *
-                  SettingsPageListTile.sf,
+    return Stack(children: [
+      // Add two additional guidance circles for checking the sliding
+      // motion of [SettingsPageListTile].
+      // ToDo: delete these unnecessary guidance circles at some point.
+      (buttonAxis == Axis.horizontal)
+          ? Positioned(
+              top: (buttonAlignment.y < 0) ? 0 : null,
+              bottom: (buttonAlignment.y > 0) ? 0 : null,
+              left: (buttonAlignment.x < 0)
+                  ? ButtonArray.buttonCoordinates!.first
+                  : null,
+              right: (buttonAlignment.x > 0)
+                  ? ButtonArray.buttonCoordinates!.first
+                  : null,
+              child: CustomPaint(
+                painter: OpenPainter(
+                  alignment: buttonAlignment,
+                  axis: buttonAxis,
+                  radius: buttonRadius + buttonPaddingMainAxis,
+                  shiftVal:
+                      ButtonArray.rect!.shortestSide * SettingsPageListTile.sf,
+                ),
+              ),
+            )
+          : Positioned(
+              top: (buttonAlignment.y < 0)
+                  ? ButtonArray.buttonCoordinates!.last
+                  : null,
+              bottom: (buttonAlignment.y > 0)
+                  ? ButtonArray.buttonCoordinates!.last
+                  : null,
+              left: (buttonAlignment.x < 0) ? 0.0 : null,
+              right: (buttonAlignment.x > 0) ? 0.0 : null,
+              child: CustomPaint(
+                painter: OpenPainter(
+                    alignment: buttonAlignment,
+                    axis: buttonAxis,
+                    radius: buttonRadius + buttonPaddingMainAxis,
+                    shiftVal: ButtonArray.rect!.shortestSide *
+                        SettingsPageListTile.sf),
+              ),
             ),
-          ),
-        ) : Positioned(
-          top: (buttonAlignment.y < 0)
-              ? ButtonArray.buttonCoordinates!.last
-              : null,
-          bottom: (buttonAlignment.y > 0)
-              ? ButtonArray.buttonCoordinates!.last
-              : null,
-          left: (buttonAlignment.x < 0) ? 0.0 : null,
-          right: (buttonAlignment.x > 0) ? 0.0 : null,
-          child: CustomPaint(
-            painter: OpenPainter(
-              alignment: buttonAlignment,
-              axis: buttonAxis,
-              radius: buttonRadius + buttonPaddingMainAxis,
-              shiftVal: ButtonArray.rect!.shortestSide *
-                  SettingsPageListTile.sf
+      (buttonAxis == Axis.horizontal)
+          ? Positioned(
+              top: (buttonAlignment.y < 0) ? 0 : null,
+              bottom: (buttonAlignment.y > 0) ? 0 : null,
+              left: (buttonAlignment.x < 0)
+                  ? ButtonArray.buttonCoordinates!.last
+                  : null,
+              right: (buttonAlignment.x > 0)
+                  ? ButtonArray.buttonCoordinates!.last
+                  : null,
+              child: CustomPaint(
+                painter: OpenPainter(
+                  alignment: buttonAlignment,
+                  axis: buttonAxis,
+                  radius: buttonRadius + buttonPaddingMainAxis,
+                  shiftVal: 0.0,
+                ),
+              ),
+            )
+          : Positioned(
+              top: (buttonAlignment.y < 0)
+                  ? ButtonArray.buttonCoordinates!.last
+                  : null,
+              bottom: (buttonAlignment.y > 0)
+                  ? ButtonArray.buttonCoordinates!.last
+                  : null,
+              left: (buttonAlignment.x < 0) ? 0.0 : null,
+              right: (buttonAlignment.x > 0) ? 0.0 : null,
+              child: CustomPaint(
+                painter: OpenPainter(
+                  alignment: buttonAlignment,
+                  axis: buttonAxis,
+                  radius: buttonRadius + buttonPaddingMainAxis,
+                  shiftVal: 0.0,
+                ),
+              ),
             ),
-          ),
-        ),
-        (buttonAxis == Axis.horizontal) ? Positioned(
-          top: (buttonAlignment.y < 0) ? 0 : null,
-          bottom: (buttonAlignment.y > 0) ? 0 : null,
-          left: (buttonAlignment.x < 0)
-              ? ButtonArray.buttonCoordinates!.last
-              : null,
-          right: (buttonAlignment.x > 0)
-              ? ButtonArray.buttonCoordinates!.last
-              : null,
-          child: CustomPaint(
-            painter: OpenPainter(
-              alignment: buttonAlignment,
-              axis: buttonAxis,
-              radius: buttonRadius + buttonPaddingMainAxis,
-              shiftVal: 0.0,
-            ),
-          ),
-        ) : Positioned(
-          top: (buttonAlignment.y < 0)
-              ? ButtonArray.buttonCoordinates!.last
-              : null,
-          bottom: (buttonAlignment.y > 0)
-              ? ButtonArray.buttonCoordinates!.last
-              : null,
-          left: (buttonAlignment.x < 0) ? 0.0 : null,
-          right: (buttonAlignment.x > 0) ? 0.0 : null,
-          child: CustomPaint(
-            painter: OpenPainter(
-              alignment: buttonAlignment,
-              axis: buttonAxis,
-              radius: buttonRadius + buttonPaddingMainAxis,
-              shiftVal: 0.0,
-            ),
-          ),
-        ),
-      ]
-    );
+    ]);
   }
 }
 
 /// A custom painter for producing the guidance circles.
-class OpenPainter extends CustomPainter{
+class OpenPainter extends CustomPainter {
   OpenPainter({
     required this.alignment,
     required this.axis,
