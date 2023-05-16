@@ -175,8 +175,7 @@ class AppDataService extends AppData {
     buttonRadius = buttonRadius ?? 28.0;
     setUserPreferences('buttonRadius', buttonRadius);
 
-    drawLayoutBounds = userPreferences.getBool('drawLayoutBounds');
-    drawLayoutBounds = drawLayoutBounds ?? false;
+    drawLayoutBounds = userPreferences.getBool('drawLayoutBounds') ?? true;
     setUserPreferences('drawLayoutBounds', drawLayoutBounds);
 
     drawSlidingGuides = userPreferences.getBool('drawSlidingGuides');
@@ -297,7 +296,7 @@ class AppDataService extends AppData {
 
   /// Toggles [drawLayoutBounds].
   void toggleDrawLayoutBounds() {
-    drawLayoutBounds = !drawLayoutBounds!;
+    drawLayoutBounds = !drawLayoutBounds;
 
     // Save user preference for [drawLayoutBounds] to storage.
     setUserPreferences('drawLayoutBounds', drawLayoutBounds);
