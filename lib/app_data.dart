@@ -49,7 +49,7 @@ abstract class AppData extends ChangeNotifier {
   late bool drawLayoutBounds;
 
   /// Whether [ButtonArray] includes [SlidingGuides] or not.
-  bool? drawSlidingGuides;
+  late bool drawSlidingGuides;
 
   /// Represents whether init has completed or not.
   bool initComplete = false;

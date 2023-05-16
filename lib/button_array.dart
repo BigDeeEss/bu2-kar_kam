@@ -29,7 +29,7 @@ class ButtonArray extends StatelessWidget with GetItMixin {
     Axis buttonAxis = watchOnly((AppData a) => a.buttonAxis!);
 
     // Watch for changes to [AppData.drawSlidingGuides] registered with [GetIt].
-    bool drawSlidingGuides = watchOnly((AppData a) => a.drawSlidingGuides!);
+    bool drawSlidingGuides = watchOnly((AppData a) => a.drawSlidingGuides);
 
     // Watch for changes to [AppData.buttonAlignment] registered with [GetIt].
     List<double> buttonCoordinates = watchOnly((AppData a) => a.buttonCoordinates)!;
