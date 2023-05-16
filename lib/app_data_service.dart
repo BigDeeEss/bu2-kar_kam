@@ -182,8 +182,7 @@ class AppDataService extends AppData {
     setUserPreferences('drawSlidingGuides', drawSlidingGuides);
 
     settingsPageListTileFadeEffect =
-        userPreferences.getBool('settingsPageListTileFadeEffect');
-    settingsPageListTileFadeEffect = settingsPageListTileFadeEffect ?? false;
+        userPreferences.getBool('settingsPageListTileFadeEffect') ?? true;
     setUserPreferences(
         'settingsPageListTileFadeEffect', settingsPageListTileFadeEffect);
 
@@ -311,7 +310,7 @@ class AppDataService extends AppData {
 
   /// Toggles [settingsPageListTileFadeEffect].
   void toggleSettingsPageListTileFadeEffect() {
-    settingsPageListTileFadeEffect = !settingsPageListTileFadeEffect!;
+    settingsPageListTileFadeEffect = !settingsPageListTileFadeEffect;
 
     // Save user preference for [settingsPageListTileFadeEffect] to storage.
     setUserPreferences(
