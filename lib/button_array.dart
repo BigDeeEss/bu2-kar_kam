@@ -39,9 +39,14 @@ class ButtonArray extends StatelessWidget with GetItMixin {
     List<ButtonSpec> buttonSpecList =
         GetItService.instance<AppData>().buttonSpecList;
 
+    // Instantiate [buttonList].
+    List<Widget> buttonList = [];
+    if (drawSlidingGuides) {
+      buttonList.add(SlidingGuides());
+    }
+
     // Loop over items in [buttonSpecList], convert each to its
     // corresponding [button] and store result in [buttonList].
-    List<Widget> buttonList = [];
     for (int i = 0; i < buttonSpecList.length; i++) {
       //  Defines the [button] to be added to [buttonList] in this iteration.
       Button button = Button(
@@ -82,11 +87,6 @@ class ButtonArray extends StatelessWidget with GetItMixin {
         ));
       }
     }
-
-    if (drawSlidingGuides) {
-      buttonList.add(SlidingGuides());
-    }
-
 
     // Need to return a single Widget and so return an instance of [Stack]
     // with its children defined to be a list of buttons.

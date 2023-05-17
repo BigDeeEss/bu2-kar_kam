@@ -123,9 +123,9 @@ class AppDataService extends AppData {
     // Use [map], its inverse and the modulus operator to cycle
     // [settingsPageListTileIconSize].
     int settingsPageListTileIconSizeIntRepresentation =
-        map.inverse()[settingsPageListTileIconSize]!;
+        map.inverse()[settingsPageListTileIconSize];
     settingsPageListTileIconSize =
-        map[(settingsPageListTileIconSizeIntRepresentation + 1) % map.length]!;
+        map[(settingsPageListTileIconSizeIntRepresentation + 1) % map.length];
 
     // Save user preference for [settingsPageListTileIconSize] to storage.
     setUserPreferences(
@@ -164,7 +164,7 @@ class AppDataService extends AppData {
     // (ii) apply default if necessary, and (iii) store new value.
     buttonAlignment = alignmentFromStringList(
         userPreferences.getStringList('buttonAlignment'));
-    buttonAlignment = buttonAlignment ?? Alignment.topRight;
+    buttonAlignment = buttonAlignment ?? Alignment.topLeft;
     setUserPreferences('buttonAlignment', buttonAlignment!.toStringList());
 
     buttonAxis = axisFromString(userPreferences.getString('buttonAxis'));
