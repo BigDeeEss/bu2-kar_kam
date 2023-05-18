@@ -144,10 +144,8 @@ class AppDataService extends AppData {
 
     // Use [map], its inverse and the modulus operator to cycle
     // [settingsPageListTileIconSize].
-    int settingsPageListTilePaddingIntRepresentation =
-        map.inverse()[settingsPageListTilePadding]!;
     settingsPageListTilePadding =
-        map[(settingsPageListTilePaddingIntRepresentation + 1) % map.length]!;
+        map[(map.inverse()[settingsPageListTilePadding] + 1) % map.length]!;
 
     // Save user preference for [settingsPageListTileIconSize] to storage.
     setUserPreferences(
@@ -185,13 +183,11 @@ class AppDataService extends AppData {
 
     settingsPageListTileIconSize =
         userPreferences.getDouble('settingsPageListTileIconSize') ?? 30.0;
-    print('initialiseAppData, settingsPageListTileIconSize = $settingsPageListTileIconSize');
     setUserPreferences(
         'settingsPageListTileIconSize', settingsPageListTileIconSize);
 
     settingsPageListTilePadding =
-        userPreferences.getDouble('settingsPageListTilePadding');
-    settingsPageListTilePadding = settingsPageListTilePadding ?? 0.0;
+        userPreferences.getDouble('settingsPageListTilePadding') ?? 0.0;
     setUserPreferences(
         'settingsPageListTilePadding', settingsPageListTilePadding);
   }
