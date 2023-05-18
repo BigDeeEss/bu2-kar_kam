@@ -122,10 +122,8 @@ class AppDataService extends AppData {
 
     // Use [map], its inverse and the modulus operator to cycle
     // [settingsPageListTileIconSize].
-    int settingsPageListTileIconSizeIntRepresentation =
-        map.inverse()[settingsPageListTileIconSize];
     settingsPageListTileIconSize =
-        map[(settingsPageListTileIconSizeIntRepresentation + 1) % map.length];
+        map[(map.inverse()[settingsPageListTileIconSize] + 1) % map.length]!;
 
     // Save user preference for [settingsPageListTileIconSize] to storage.
     setUserPreferences(
@@ -163,16 +161,15 @@ class AppDataService extends AppData {
     // In what follows and in all cases: (i) attempt to retrieve stored value,
     // (ii) apply default if necessary, and (iii) store new value.
     buttonAlignment = alignmentFromStringList(
-        userPreferences.getStringList('buttonAlignment'));
-    buttonAlignment = buttonAlignment ?? Alignment.topLeft;
+            userPreferences.getStringList('buttonAlignment')) ??
+        Alignment.topLeft;
     setUserPreferences('buttonAlignment', buttonAlignment!.toStringList());
 
-    buttonAxis = axisFromString(userPreferences.getString('buttonAxis'));
-    buttonAxis = buttonAxis ?? Axis.vertical;
+    buttonAxis = axisFromString(userPreferences.getString('buttonAxis')) ??
+        Axis.vertical;
     setUserPreferences('buttonAxis', buttonAxis.toString());
 
-    buttonRadius = userPreferences.getDouble('buttonRadius');
-    buttonRadius = buttonRadius ?? 28.0;
+    buttonRadius = userPreferences.getDouble('buttonRadius') ?? 28.0;
     setUserPreferences('buttonRadius', buttonRadius);
 
     drawLayoutBounds = userPreferences.getBool('drawLayoutBounds') ?? true;
@@ -187,8 +184,8 @@ class AppDataService extends AppData {
         'settingsPageListTileFadeEffect', settingsPageListTileFadeEffect);
 
     settingsPageListTileIconSize =
-        userPreferences.getDouble('settingsPageListTileIconSize');
-    settingsPageListTileIconSize = settingsPageListTileIconSize ?? 28.0;
+        userPreferences.getDouble('settingsPageListTileIconSize') ?? 30.0;
+    print('initialiseAppData, settingsPageListTileIconSize = $settingsPageListTileIconSize');
     setUserPreferences(
         'settingsPageListTileIconSize', settingsPageListTileIconSize);
 
