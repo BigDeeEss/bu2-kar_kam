@@ -46,25 +46,25 @@ abstract class AppData extends ChangeNotifier {
   ];
 
   /// Whether [BoxedContainer] draws bounding boxes or not.
-  bool? drawLayoutBounds;
+  late bool drawLayoutBounds;
 
   /// Whether [ButtonArray] includes [SlidingGuides] or not.
-  bool? drawSlidingGuides;
+  late bool drawSlidingGuides;
 
   /// Represents whether init has completed or not.
   bool initComplete = false;
 
   /// Whether fade effect in SettingsPageListTile is active or not.
-  bool? settingsPageListTileFadeEffect;
+  late bool settingsPageListTileFadeEffect;
 
   /// Defines the icon radius in Button.
-  double? settingsPageListTileIconSize;
+  late double settingsPageListTileIconSize;
 
   /// Defines the padding between tiles.
-  double? settingsPageListTilePadding;
+  late double settingsPageListTilePadding;
 
   /// Defines the tile corner radius.
-  double? settingsPageListTileRadius;
+  late double settingsPageListTileRadius;
 
   /// Updates [this] using [identifier] to determine which field to change and
   /// calling the appropriate change function using the unspecified [newValue].

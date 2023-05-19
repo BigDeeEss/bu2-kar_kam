@@ -52,8 +52,6 @@ class AppDataService extends AppData {
           cycleSettingsPageListTileIconSize(),
       'settingsPageListTilePadding': (newValue) =>
           cycleSettingsPageListTilePadding(),
-      'settingsPageListTileRadius': (newValue) =>
-          cycleSettingsPageListTileRadius(),
     };
 
     // Call the function determined from [map] and update relevant field.
@@ -124,10 +122,8 @@ class AppDataService extends AppData {
 
     // Use [map], its inverse and the modulus operator to cycle
     // [settingsPageListTileIconSize].
-    int settingsPageListTileIconSizeIntRepresentation =
-        map.inverse()[settingsPageListTileIconSize]!;
     settingsPageListTileIconSize =
-        map[(settingsPageListTileIconSizeIntRepresentation + 1) % map.length]!;
+        map[(map.inverse()[settingsPageListTileIconSize] + 1) % map.length]!;
 
     // Save user preference for [settingsPageListTileIconSize] to storage.
     setUserPreferences(
@@ -148,39 +144,12 @@ class AppDataService extends AppData {
 
     // Use [map], its inverse and the modulus operator to cycle
     // [settingsPageListTileIconSize].
-    int settingsPageListTilePaddingIntRepresentation =
-        map.inverse()[settingsPageListTilePadding]!;
     settingsPageListTilePadding =
-        map[(settingsPageListTilePaddingIntRepresentation + 1) % map.length]!;
+        map[(map.inverse()[settingsPageListTilePadding] + 1) % map.length]!;
 
     // Save user preference for [settingsPageListTileIconSize] to storage.
     setUserPreferences(
         'settingsPageListTilePadding', settingsPageListTilePadding);
-  }
-
-  /// Cycle and upload a new [settingsPageListTileIconSize]; update
-  /// dependencies.
-  void cycleSettingsPageListTileRadius() {
-    // Define a map which can convert an integer to a double that represents
-    // a value for [settingsPageListTileIconSize].
-    Map<int, double> map = {
-      0: 0.0,
-      1: 5.0,
-      2: 10.0,
-      3: 15.0,
-      4: 20.0,
-    };
-
-    // Use [map], its inverse and the modulus operator to cycle
-    // [settingsPageListTileIconSize].
-    int cycleSettingsPageListTileRadiusIntRepresentation =
-        map.inverse()[settingsPageListTileRadius]!;
-    settingsPageListTileRadius = map[
-        (cycleSettingsPageListTileRadiusIntRepresentation + 1) % map.length]!;
-
-    // Save user preference for [settingsPageListTileIconSize] to storage.
-    setUserPreferences(
-        'settingsPageListTileRadius', settingsPageListTileRadius);
   }
 
   Future<void> initialiseAppData() async {
@@ -190,47 +159,40 @@ class AppDataService extends AppData {
     // In what follows and in all cases: (i) attempt to retrieve stored value,
     // (ii) apply default if necessary, and (iii) store new value.
     buttonAlignment = alignmentFromStringList(
-        userPreferences.getStringList('buttonAlignment'));
-    buttonAlignment = buttonAlignment ?? Alignment.topRight;
+            userPreferences.getStringList('buttonAlignment')) ??
+        Alignment.topLeft;
     setUserPreferences('buttonAlignment', buttonAlignment!.toStringList());
 
-    buttonAxis = axisFromString(userPreferences.getString('buttonAxis'));
-    buttonAxis = buttonAxis ?? Axis.vertical;
+    buttonAxis = axisFromString(userPreferences.getString('buttonAxis')) ??
+        Axis.vertical;
     setUserPreferences('buttonAxis', buttonAxis.toString());
 
-    buttonRadius = userPreferences.getDouble('buttonRadius');
-    buttonRadius = buttonRadius ?? 28.0;
+    buttonRadius = userPreferences.getDouble('buttonRadius') ?? 28.0;
     setUserPreferences('buttonRadius', buttonRadius);
 
-    drawLayoutBounds = userPreferences.getBool('drawLayoutBounds');
-    drawLayoutBounds = drawLayoutBounds ?? false;
+    drawLayoutBounds = userPreferences.getBool('drawLayoutBounds') ?? true;
     setUserPreferences('drawLayoutBounds', drawLayoutBounds);
 
-    drawSlidingGuides = userPreferences.getBool('drawSlidingGuides');
-    drawSlidingGuides = drawSlidingGuides ?? false;
+    drawSlidingGuides = userPreferences.getBool('drawSlidingGuides') ?? true;
     setUserPreferences('drawSlidingGuides', drawSlidingGuides);
 
     settingsPageListTileFadeEffect =
-        userPreferences.getBool('settingsPageListTileFadeEffect');
-    settingsPageListTileFadeEffect = settingsPageListTileFadeEffect ?? false;
+        userPreferences.getBool('settingsPageListTileFadeEffect') ?? true;
     setUserPreferences(
         'settingsPageListTileFadeEffect', settingsPageListTileFadeEffect);
 
     settingsPageListTileIconSize =
-        userPreferences.getDouble('settingsPageListTileIconSize');
-    settingsPageListTileIconSize = settingsPageListTileIconSize ?? 28.0;
+        userPreferences.getDouble('settingsPageListTileIconSize') ?? 30.0;
     setUserPreferences(
         'settingsPageListTileIconSize', settingsPageListTileIconSize);
 
     settingsPageListTilePadding =
-        userPreferences.getDouble('settingsPageListTilePadding');
-    settingsPageListTilePadding = settingsPageListTilePadding ?? 0.0;
+        userPreferences.getDouble('settingsPageListTilePadding') ?? 0.0;
     setUserPreferences(
         'settingsPageListTilePadding', settingsPageListTilePadding);
 
     settingsPageListTileRadius =
-        userPreferences.getDouble('settingsPageListTileRadius');
-    settingsPageListTileRadius = settingsPageListTileRadius ?? 15.0;
+        userPreferences.getDouble('settingsPageListTileRadius') ?? 15.0;
     setUserPreferences(
         'settingsPageListTileRadius', settingsPageListTileRadius);
   }
@@ -305,6 +267,9 @@ class AppDataService extends AppData {
   Future<void> setUserPreferences(String key, var value) async {
     final userPreferences = await SharedPreferences.getInstance();
 
+    // ToDo: Remove this wait function.
+    // await Future.delayed(const Duration(seconds: 10));
+
     if (value is bool) {
       userPreferences.setBool(key, value);
     } else if (value is double) {
@@ -327,7 +292,7 @@ class AppDataService extends AppData {
 
   /// Toggles [drawLayoutBounds].
   void toggleDrawLayoutBounds() {
-    drawLayoutBounds = !drawLayoutBounds!;
+    drawLayoutBounds = !drawLayoutBounds;
 
     // Save user preference for [drawLayoutBounds] to storage.
     setUserPreferences('drawLayoutBounds', drawLayoutBounds);
@@ -335,7 +300,7 @@ class AppDataService extends AppData {
 
   /// Toggles [drawLayoutBounds].
   void toggleDrawSlidingGuides() {
-    drawSlidingGuides = !drawSlidingGuides!;
+    drawSlidingGuides = !drawSlidingGuides;
 
     // Save user preference for [drawLayoutBounds] to storage.
     setUserPreferences('drawSlidingGuides', drawSlidingGuides);
@@ -343,7 +308,7 @@ class AppDataService extends AppData {
 
   /// Toggles [settingsPageListTileFadeEffect].
   void toggleSettingsPageListTileFadeEffect() {
-    settingsPageListTileFadeEffect = !settingsPageListTileFadeEffect!;
+    settingsPageListTileFadeEffect = !settingsPageListTileFadeEffect;
 
     // Save user preference for [settingsPageListTileFadeEffect] to storage.
     setUserPreferences(
