@@ -64,7 +64,7 @@ abstract class AppData extends ChangeNotifier {
   late double settingsPageListTilePadding;
 
   /// Defines the tile corner radius.
-  double settingsPageListTileRadius = 15.0;
+  late double settingsPageListTileRadius;
 
   /// Updates [this] using [identifier] to determine which field to change and
   /// calling the appropriate change function using the unspecified [newValue].
