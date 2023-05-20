@@ -10,33 +10,33 @@ abstract class AppData extends ChangeNotifier {
   /// the [BottomAppBar] height in [BasePage] class.
   double appBarHeightScaleFactor = 1.0;
 
+  /// The available screen dimensions.
+  Rect? basePageViewRect;
+
   /// The anchor point for determining [Button] placement in [ButtonArray].
-  Alignment? buttonAlignment;
+  late Alignment buttonAlignment;
 
   /// Represents the layout bounds for [ButtonArray].
-  Rect? buttonArrayRect;
+  late Rect buttonArrayRect;
 
   /// The axis for [ButtonArray].
-  Axis? buttonAxis;
+  late Axis buttonAxis;
 
   /// Coordinates for [ButtonArray].
-  List<double>? buttonCoordinates;
-
-  /// Main axis padding for in between buttons in [ButtonArray].
-  double buttonPaddingMainAxis = 15.0;
-
-  /// An alternative padding for in between buttons in [ButtonArray].
-  double buttonPaddingMainAxisAlt = 12.5;
+  late List<double> buttonCoordinates;
 
   /// Defines the padding surrounding each button.
   EdgeInsetsDirectional get buttonPadding =>
       EdgeInsetsDirectional.all(buttonPaddingMainAxis);
 
-  /// The available screen dimensions.
-  Rect? basePageViewRect;
+  /// Main axis padding for in between buttons in [ButtonArray].
+  late double buttonPaddingMainAxis;
+
+  /// An alternative padding for in between buttons in [ButtonArray].
+  late double buttonPaddingMainAxisAlt;
 
   /// Button radius for [Button] class.
-  double? buttonRadius;
+  late double buttonRadius;
 
   /// List of [ButtonSpec] for [ButtonArray].
   List<ButtonSpec> buttonSpecList = [
@@ -75,5 +75,5 @@ abstract class AppData extends ChangeNotifier {
   });
 
   /// Initiates field variables; only called once after app start.
-  void initialise();
+  void initButtonArrayRectAndCoords();
 }

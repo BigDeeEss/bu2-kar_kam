@@ -82,7 +82,7 @@ class AppDataService extends AppData {
 
     // Save user preference for [buttonAxis] to storage.
     // print(buttonAlignment!.toStringList());
-    setUserPreferences('buttonAlignment', buttonAlignment!.toStringList());
+    setUserPreferences('buttonAlignment', buttonAlignment.toStringList());
   }
 
   /// Cycle and upload a new [buttonRadius]; update dependencies.
@@ -161,11 +161,19 @@ class AppDataService extends AppData {
     buttonAlignment = alignmentFromStringList(
             userPreferences.getStringList('buttonAlignment')) ??
         Alignment.topLeft;
-    setUserPreferences('buttonAlignment', buttonAlignment!.toStringList());
+    setUserPreferences('buttonAlignment', buttonAlignment.toStringList());
 
     buttonAxis = axisFromString(userPreferences.getString('buttonAxis')) ??
         Axis.vertical;
     setUserPreferences('buttonAxis', buttonAxis.toString());
+
+    buttonPaddingMainAxis =
+        userPreferences.getDouble('buttonPaddingMainAxis') ?? 15.0;
+    setUserPreferences('buttonPaddingMainAxis', buttonPaddingMainAxis);
+
+    buttonPaddingMainAxisAlt =
+        userPreferences.getDouble('buttonPaddingMainAxisAlt') ?? 12.5;
+    setUserPreferences('buttonPaddingMainAxisAlt', buttonPaddingMainAxisAlt);
 
     buttonRadius = userPreferences.getDouble('buttonRadius') ?? 28.0;
     setUserPreferences('buttonRadius', buttonRadius);
@@ -199,7 +207,7 @@ class AppDataService extends AppData {
 
   /// Initiates field variables; only called once after app start.
   @override
-  void initialise() {
+  void initButtonArrayRectAndCoords() {
     // Exit if init has already been executed.
     if (initComplete) return;
 
@@ -213,8 +221,8 @@ class AppDataService extends AppData {
 
   /// Calculates the bounding box for [ButtonArray].
   Rect setButtonArrayRect() {
-    double dim = 2 * (buttonRadius! + buttonPaddingMainAxisAlt);
-    double shortLength = 2.0 * (buttonRadius! + buttonPaddingMainAxis);
+    double dim = 2 * (buttonRadius + buttonPaddingMainAxisAlt);
+    double shortLength = 2.0 * (buttonRadius + buttonPaddingMainAxis);
     double longLength = (buttonSpecList.length - 1) * dim + shortLength;
 
     // Generate Rect of the correct size at screen top left.
@@ -253,7 +261,7 @@ class AppDataService extends AppData {
   List<double> setButtonCoordinates() {
     // A length -- button width plus padding -- for defining [coordinateList].
     // Using two parameters allows for the bounding boxes of buttons to overlap.
-    double dim = 2 * (buttonRadius! + buttonPaddingMainAxisAlt);
+    double dim = 2 * (buttonRadius + buttonPaddingMainAxisAlt);
 
     // Loop over items in [buttonSpecList] and convert each to its
     // corresponding position.
@@ -283,7 +291,7 @@ class AppDataService extends AppData {
 
   /// Toggles [buttonAxis].
   void toggleButtonAxis() {
-    buttonAxis = flipAxis(buttonAxis!);
+    buttonAxis = flipAxis(buttonAxis);
     buttonArrayRect = setButtonArrayRect();
 
     // Save user preference for [buttonAxis] to storage.
