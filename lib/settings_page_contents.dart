@@ -59,7 +59,7 @@ class _SettingsPageContentsState extends State<SettingsPageContents>
     // Watch for changes to [Settings.settingsPageListTileIconSize]
     // registered with GetIt.
     double settingsPageListTileIconSize =
-        watchOnly((AppData a) => a.settingsPageListTileIconSize!);
+        watchOnly((AppData a) => a.settingsPageListTileIconSize);
 
     // Get [basePageViewRect] (from [DataNotifier] in [BasePage]).
     GlobalKey basePageViewKey =

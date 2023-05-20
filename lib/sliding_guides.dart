@@ -17,10 +17,10 @@ class SlidingGuides extends StatelessWidget with GetItMixin {
     // AppData appData = GetItService.instance<AppData>();
 
     // Watch for changes to [AppData.buttonAxis] registered with GetIt.
-    Axis buttonAxis = watchOnly((AppData a) => a.buttonAxis!);
+    Axis buttonAxis = watchOnly((AppData a) => a.buttonAxis);
 
     // Watch for changes to [AppData.buttonAlignment] registered with GetIt.
-    Alignment buttonAlignment = watchOnly((AppData a) => a.buttonAlignment!);
+    Alignment buttonAlignment = watchOnly((AppData a) => a.buttonAlignment);
 
     // Use a combination of [BoxedContainer], [Container] and [BoxShape] to
     // draw a circle.

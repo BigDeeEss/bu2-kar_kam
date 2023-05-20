@@ -96,8 +96,8 @@ class _BasePageViewState extends State<_BasePageView> {
       // Rebuild widget with [pageSpec.contents] instead of [Container].
       if (pageContents == null) {
         setState(() {
-          pageContents = widget.pageContents;
-          // pageContents = [const BasePageViewTest()];
+          // pageContents = widget.pageContents;
+          pageContents = [const BasePageViewTest()];
         });
       }
     });
@@ -129,8 +129,12 @@ class BasePageViewTest extends StatelessWidget {
     assert(basePageViewRect != null,
         'BasePageViewTest, build...basePageViewRect is null...');
 
-    // Print basePageViewRect for test purposes and return [Placeholder]..
-    print('BasePageViewTest, build...basePageViewRect = $basePageViewRect...');
-    return const Placeholder();
+    // Print basePageViewRect for test purposes and return [Placeholder].
+    return Center(
+      child: Text(
+        'BasePageViewTest, build...basePageViewRect = $basePageViewRect...',
+        textAlign: TextAlign.center,
+      ),
+    );
   }
 }

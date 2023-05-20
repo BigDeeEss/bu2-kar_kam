@@ -28,10 +28,10 @@ class KarKam extends StatelessWidget {
             if (!snapshot.hasData) {
               // For the 'has no data' case, where the load of app settings
               // is still in progress, present a progress indicator.
-              return Column(
+              return const Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
-                children: const [
+                children: <Widget>[
                   Text(
                     'Initialising Kar Kam...',
                   ),

@@ -35,7 +35,7 @@ class SettingsPageListTile extends StatelessWidget with GetItMixin {
     } else {
       assert(rect is Rect, 'SettingsPageListTile...error...guestRect is null');
     }
-    double buttonRadius = GetItService.instance<AppData>().buttonRadius!;
+    double buttonRadius = GetItService.instance<AppData>().buttonRadius;
     double settingsPageListTilePadding =
         GetItService.instance<AppData>().settingsPageListTilePadding;
     double settingsPageListTileRadius =
@@ -121,7 +121,7 @@ class SettingsPageListTile extends StatelessWidget with GetItMixin {
     // Returns null only if [guestRect] is null.
     if (guestRect != null) {
       Alignment buttonAlignment =
-          GetItService.instance<AppData>().buttonAlignment!;
+          GetItService.instance<AppData>().buttonAlignment;
       Rect uRect = upperConstructionRect!;
       Rect lRect = lowerConstructionRect!;
 
@@ -362,10 +362,10 @@ class SettingsPageListTile extends StatelessWidget with GetItMixin {
   @override
   Widget build(BuildContext context) {
     // Watch for changes to [AppData.buttonAxis] registered with [GetIt].
-    guestRect = watchOnly((AppData a) => a.buttonArrayRect!);
+    guestRect = watchOnly((AppData a) => a.buttonArrayRect);
 
     // Watch for changes to [AppData.buttonAlignment] registered with [GetIt].
-    Alignment buttonAlignment = watchOnly((AppData a) => a.buttonAlignment!);
+    Alignment buttonAlignment = watchOnly((AppData a) => a.buttonAlignment);
 
     // Watch for changes to [AppData.buttonAlignment] registered with [GetIt].
     double settingsPageListTilePadding =
